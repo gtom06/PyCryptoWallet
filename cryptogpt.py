@@ -8,6 +8,7 @@ portfolio_file = 'portfolio.json'
 coins_list_file = 'cryptocoinslist.json'
 logging.basicConfig(level=logging.ERROR)
 logger = logging.getLogger(__name__)
+print('hello')
 
 
 class Portfolio:
