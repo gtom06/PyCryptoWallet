@@ -1,5 +1,8 @@
 import logging
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
+
+import requests
+
 from json_manager import JsonFileManager
 from api_manager import ApiRequestManager
 
