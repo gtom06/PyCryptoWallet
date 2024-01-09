@@ -66,6 +66,7 @@ class Portfolio:
 
     def add_crypto(self, crypto_symbol, crypto_amount, amount_euro_spent):
         self.update_supported_coins_list()
+        crypto_symbol = crypto_symbol.lower()
         coin_id = self.get_coin_id(crypto_symbol)
         if coin_id is not None:
             qty_before = self.cryptos_owned.get(crypto_symbol, {}).get("qty", 0)
