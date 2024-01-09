@@ -159,26 +159,17 @@ class Portfolio:
 
             value_in_euro = qty * actual_value
 
-            if current_timestamp not in portfolio_values:
-                portfolio_values[current_timestamp] = {}
-
-            portfolio_values[current_timestamp][symbol] = {
+            portfolio_values[symbol] = {
                 'amount_eur_actual': value_in_euro,
                 'qty': qty,
                 'amount_eur_spent': amount_eur_spent
             }
 
-        return portfolio_values
+        return {current_timestamp: portfolio_values}
 
     def calculate_and_save_portfolio_values(self):
-        portfolio_values = self.calculate_portfolio_values_2()
-        current_timestamp = datetime.now(timezone.utc).isoformat()
-
-        formatted_data = {
-            current_timestamp: portfolio_values
-        }
+        formatted_data = self.calculate_portfolio_values_2()
         JsonFileManager.save_append_json(self.portfolio_values_filename, formatted_data)
-
     def calculate_portfolio_sum_values(self):
         actual_values = self.calculate_portfolio_values()
         sum_values = sum(actual_values.values())

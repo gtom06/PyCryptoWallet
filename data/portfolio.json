@@ -11,6 +11,12 @@
             "qty": 1.5,
             "amount_euro_spent": 50000,
             "last_modified_date": "2024-01-04T15:09:05.096119+00:00"
+        },
+        "cro": {
+            "coin_id": "crypto-com-chain",
+            "qty": 1.5,
+            "amount_euro_spent": 50000,
+            "last_modified_date": "2024-01-04T15:09:05.096119+00:00"
         }
     }
 }
