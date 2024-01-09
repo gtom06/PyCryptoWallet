@@ -3,8 +3,8 @@ from datetime import datetime, timedelta, timezone
 import requests
 import logging
 
-PORTFOLIO_FILE = 'portfolio.json'
-COINS_LIST_FILE = 'cryptocoinslist.json'
+PORTFOLIO_FILE = '../data/portfolio.json'
+COINS_LIST_FILE = '../data/cryptocoinslist.json'
 LOGGING_INTERVAL_DAYS = 7
 
 logging.basicConfig(level=logging.ERROR)
