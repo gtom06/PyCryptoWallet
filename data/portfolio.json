@@ -2,9 +2,9 @@
     "cryptos_owned": {
         "btc": {
             "coin_id": "bitcoin",
-            "qty": 21.0,
-            "amount_euro_spent": 700000,
-            "last_modified_date": "2024-01-04T15:29:47.525062+00:00"
+            "qty": 35.0,
+            "amount_euro_spent": 701400,
+            "last_modified_date": "2024-01-09T23:26:32.461403+00:00"
         },
         "btc2": {
             "coin_id": "bitcoin-2",
