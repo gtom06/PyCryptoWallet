@@ -1,53 +1,17 @@
 {
-    "2024-01-09T22:35:03.396366+00:00": {
+    "2024-01-09T22:45:35.080272+00:00": {
         "btc": {
-            "amount_eur_actual": 881322.285516003,
+            "amount_eur_actual": 884551.5735155735,
             "qty": 21.0,
             "amount_eur_spent": 700000
         },
         "btc2": {
-            "amount_eur_actual": 0.5478346995225913,
-            "qty": 1.5,
-            "amount_eur_spent": 50000
-        }
-    },
-    "2024-01-09T22:35:10.331114+00:00": {
-        "btc": {
-            "amount_eur_actual": 882071.6147966963,
-            "qty": 21.0,
-            "amount_eur_spent": 700000
-        },
-        "btc2": {
-            "amount_eur_actual": 0.5478346995225913,
-            "qty": 1.5,
-            "amount_eur_spent": 50000
-        }
-    },
-    "2024-01-09T22:35:15.147354+00:00": {
-        "btc": {
-            "amount_eur_actual": 882071.6147966963,
-            "qty": 21.0,
-            "amount_eur_spent": 700000
-        },
-        "btc2": {
-            "amount_eur_actual": 0.5478346995225913,
-            "qty": 1.5,
-            "amount_eur_spent": 50000
-        }
-    },
-    "2024-01-09T22:35:54.853866+00:00": {
-        "btc": {
-            "amount_eur_actual": 882191.603705005,
-            "qty": 21.0,
-            "amount_eur_spent": 700000
-        },
-        "btc2": {
-            "amount_eur_actual": 0.5478346995225913,
+            "amount_eur_actual": 0.5489099719815633,
             "qty": 1.5,
             "amount_eur_spent": 50000
         },
         "cro": {
-            "amount_eur_actual": 0.12137954431862323,
+            "amount_eur_actual": 0.12132789642275796,
             "qty": 1.5,
             "amount_eur_spent": 50000
         }

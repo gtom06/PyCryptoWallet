@@ -24,10 +24,7 @@ class JsonFileManager:
                 existing_data = json.load(file)
         except (FileNotFoundError, json.JSONDecodeError):
             existing_data = {}
-
-        current_timestamp = datetime.now(timezone.utc).isoformat()
         existing_data.update(data)
-
         with open(filename, "w") as file:
             json.dump(existing_data, file, indent=4)
 
