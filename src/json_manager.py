@@ -1,5 +1,6 @@
-import json
 from datetime import datetime, timedelta, timezone
+import json
+import json
 
 class JsonFileManager:
     @staticmethod
@@ -17,15 +18,15 @@ class JsonFileManager:
             json.dump(data, file, indent=4)
 
     @staticmethod
-    def should_update_coins_list(coins_list_data, update_interval_days):
-        last_requested_date = coins_list_data.get("last_requested_date")
-
-        if not last_requested_date or not isinstance(last_requested_date, str):
-            return True
-
+    def save_append_json(filename, data):
         try:
-            last_requested_date = datetime.fromisoformat(last_requested_date)
-            update_threshold = datetime.now(timezone.utc) - timedelta(days=update_interval_days)
-            return last_requested_date < update_threshold
-        except ValueError:
-            return True
+            with open(filename, "r") as file:
+                existing_data = json.load(file)
+        except (FileNotFoundError, json.JSONDecodeError):
+            existing_data = {}
+
+        current_timestamp = datetime.now(timezone.utc).isoformat()
+        existing_data[current_timestamp] = data
+
+        with open(filename, "w") as file:
+            json.dump(existing_data, file, indent=4)
