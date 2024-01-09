@@ -139,3 +139,27 @@ class Portfolio:
             portfolio_values[symbol] = value_in_euro
 
         return portfolio_values
+
+    def calculate_portfolio_sum_values(self):
+        actual_values = self.calculate_portfolio_values()
+        sum_values = sum(actual_values.values())
+        return sum_values
+
+    def get_and_calculate_portfolio_values(self):
+        actual_values = self.get_actual_values()
+        if not actual_values:
+            return {}, 0
+
+        portfolio_values = {}
+        sum_values = 0
+        for symbol, crypto_data in self.cryptos_owned.items():
+            qty = crypto_data.get('qty', 0)
+            coin_id = crypto_data.get('coin_id', '')
+            actual_value = actual_values.get(coin_id, 0)
+
+            value_in_euro = qty * actual_value
+            portfolio_values[symbol] = value_in_euro
+            sum_values += value_in_euro
+
+        return portfolio_values, sum_values
+
