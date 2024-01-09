@@ -7,7 +7,7 @@ from api_manager import ApiRequestManager
 
 PORTFOLIO_FILE = '../data/portfolio.json'
 COINS_LIST_FILE = '../data/cryptocoinslist.json'
-PORTFOLIO_VALUES_FILE = '../data/portfolio_values.json'  # Definisci il nuovo file come variabile globale
+PORTFOLIO_VALUES_FILE = '../data/portfolio_values.json'
 LOGGING_INTERVAL_DAYS = 7
 
 # Configurazione di un logger con un handler che gestisce solo livelli di log ERROR
