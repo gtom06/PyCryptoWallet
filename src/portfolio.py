@@ -1,7 +1,7 @@
-import json
-from datetime import datetime, timedelta, timezone
-import requests
 import logging
+from datetime import datetime, timedelta, timezone
+from json_manager import JsonFileManager
+from api_manager import ApiRequestManager
 
 PORTFOLIO_FILE = '../data/portfolio.json'
 COINS_LIST_FILE = '../data/cryptocoinslist.json'
@@ -9,7 +9,7 @@ LOGGING_INTERVAL_DAYS = 7
 
 logging.basicConfig(level=logging.ERROR)
 logger = logging.getLogger(__name__)
-print('hello')
+print('hello test')
 
 class Portfolio:
     REQ_PRICE = "https://api.coingecko.com/api/v3/simple/price?ids={}&vs_currencies=eur&include_market_cap=false&include_24hr_vol=false&include_24hr_change=false&include_last_updated_at=false&precision=full"
@@ -135,51 +135,3 @@ class Portfolio:
             portfolio_values[symbol] = value_in_euro
 
         return portfolio_values
-
-class JsonFileManager:
-    @staticmethod
-    def load_json(filename, default_value):
-        try:
-            with open(filename, "r") as file:
-                return json.load(file)
-        except (FileNotFoundError, json.JSONDecodeError):
-            JsonFileManager.save_json(filename, default_value)
-            return default_value
-
-    @staticmethod
-    def save_json(filename, data):
-        with open(filename, "w") as file:
-            json.dump(data, file, indent=4)
-
-    @staticmethod
-    def should_update_coins_list(coins_list_data, update_interval_days):
-        last_requested_date = coins_list_data.get("last_requested_date")
-
-        if not last_requested_date or not isinstance(last_requested_date, str):
-            return True
-
-        try:
-            last_requested_date = datetime.fromisoformat(last_requested_date)
-            update_threshold = datetime.now(timezone.utc) - timedelta(days=update_interval_days)
-            return last_requested_date < update_threshold
-        except ValueError:
-            return True
-
-class ApiRequestManager:
-    @staticmethod
-    def get(url):
-        return requests.get(url)
-
-crypto_symbol = "BTC"
-crypto_amount = 1.5
-amount_euro_spent = 50000
-
-portfolio = Portfolio()
-portfolio.add_crypto(crypto_symbol, crypto_amount, amount_euro_spent)
-portfolio.display_portfolio()
-
-actual_values = portfolio.get_actual_values()
-print(actual_values)
-
-portfolio_values = portfolio.calculate_portfolio_values()
-print(portfolio_values)
