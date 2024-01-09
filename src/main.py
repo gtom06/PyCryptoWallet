@@ -1,3 +1,6 @@
+import threading
+import time
+
 from portfolio import Portfolio
 
 def main():
@@ -7,13 +10,19 @@ def main():
 
     portfolio = Portfolio()
     #portfolio.add_crypto(crypto_symbol, crypto_amount, amount_euro_spent)
-    portfolio.display_portfolio()
+    #portfolio.display_portfolio()
 
-    actual_values = portfolio.get_actual_values()
-    print(actual_values)
+    #actual_values = portfolio.get_actual_values()
+    #print(actual_values)
 
 
-    print(portfolio.get_and_calculate_portfolio_values())
+    #print(portfolio.calculate_portfolio_values_2())
+    portfolio.calculate_and_save_portfolio_values()
+    #portfolio2 = Portfolio("", "","")
 
 if __name__ == "__main__":
-    main()
+    while(1):
+        thread = threading.Thread(target=main)
+        thread.start()
+        thread.join()
+        time.sleep(120)

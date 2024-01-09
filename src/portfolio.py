@@ -7,6 +7,7 @@ from api_manager import ApiRequestManager
 
 PORTFOLIO_FILE = '../data/portfolio.json'
 COINS_LIST_FILE = '../data/cryptocoinslist.json'
+PORTFOLIO_VALUES_FILE = '../data/portfolio_values.json'  # Definisci il nuovo file come variabile globale
 LOGGING_INTERVAL_DAYS = 7
 
 # Configurazione di un logger con un handler che gestisce solo livelli di log ERROR
@@ -20,9 +21,10 @@ class Portfolio:
     REQ_COINS_LIST = 'https://api.coingecko.com/api/v3/coins/list'
 
     def __init__(self, portfolio_filename=PORTFOLIO_FILE, coinslist_filename=COINS_LIST_FILE,
-                 update_interval_days=LOGGING_INTERVAL_DAYS):
+                 portfolio_values_filename=PORTFOLIO_VALUES_FILE, update_interval_days=LOGGING_INTERVAL_DAYS):
         self.portfolio_filename = portfolio_filename
         self.coinslist_filename = coinslist_filename
+        self.portfolio_values_filename = portfolio_values_filename  # Aggiorna il nome del file
         self.update_interval_days = update_interval_days
         self.cryptos_owned = JsonFileManager.load_json(self.portfolio_filename, {}).get("cryptos_owned", {})
         self.coins_list_data = JsonFileManager.load_json(self.coinslist_filename,
@@ -30,6 +32,7 @@ class Portfolio:
 
     def update_portfolio(self):
         JsonFileManager.save_json(self.portfolio_filename, {"cryptos_owned": self.cryptos_owned})
+
 
     def update_coins_list(self, req_coins_list):
         try:
@@ -139,6 +142,42 @@ class Portfolio:
             portfolio_values[symbol] = value_in_euro
 
         return portfolio_values
+
+    def calculate_portfolio_values_2(self):
+        actual_values = self.get_actual_values()
+        if not actual_values:
+            return {}
+
+        portfolio_values = {}
+        current_timestamp = datetime.now(timezone.utc).isoformat()
+
+        for symbol, crypto_data in self.cryptos_owned.items():
+            qty = crypto_data.get('qty', 0)
+            coin_id = crypto_data.get('coin_id', '')
+            actual_value = actual_values.get(coin_id, 0)
+            amount_eur_spent = crypto_data.get('amount_euro_spent', 0)
+
+            value_in_euro = qty * actual_value
+
+            if current_timestamp not in portfolio_values:
+                portfolio_values[current_timestamp] = {}
+
+            portfolio_values[current_timestamp][symbol] = {
+                'amount_eur_actual': value_in_euro,
+                'qty': qty,
+                'amount_eur_spent': amount_eur_spent
+            }
+
+        return portfolio_values
+
+    def calculate_and_save_portfolio_values(self):
+        portfolio_values = self.calculate_portfolio_values_2()
+        current_timestamp = datetime.now(timezone.utc).isoformat()
+
+        formatted_data = {
+            current_timestamp: portfolio_values
+        }
+        JsonFileManager.save_append_json(self.portfolio_values_filename, formatted_data)
 
     def calculate_portfolio_sum_values(self):
         actual_values = self.calculate_portfolio_values()
