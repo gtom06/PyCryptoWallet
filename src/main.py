@@ -17,14 +17,9 @@ def perform_operations(portfolio):
 if __name__ == "__main__":
     portfolio = Portfolio()
 
-    # Crea i thread per le due attività principali
+    # Crea un thread per main_loop
     main_thread = threading.Thread(target=main_loop, args=(portfolio,))
-    operations_thread = threading.Thread(target=perform_operations, args=(portfolio,))
-
-    # Avvia entrambi i thread
     main_thread.start()
-    operations_thread.start()
 
-    # Attendi che entrambi i thread abbiano terminato
-    main_thread.join()
-    operations_thread.join()
+    # Esegui perform_operations nel thread principale
+    perform_operations(portfolio)
