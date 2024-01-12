@@ -181,8 +181,6 @@ class Portfolio:
 
         return result
 
-        return portfolio_values
-
     def calculate_and_save_portfolio_values(self):
         formatted_data = self.calculate_portfolio_values_2()
         JsonFileManager.save_append_json(self.portfolio_values_filename, formatted_data)
