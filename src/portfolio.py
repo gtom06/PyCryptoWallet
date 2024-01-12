@@ -151,6 +151,8 @@ class Portfolio:
 
         portfolio_values = {}
         current_timestamp = datetime.now(timezone.utc).isoformat()
+        total_amount_eur_actual = 0
+        total_amount_eur_spent = 0
 
         for symbol, crypto_data in self.cryptos_owned.items():
             qty = crypto_data.get('qty', 0)
@@ -166,7 +168,18 @@ class Portfolio:
                 'amount_eur_spent': amount_eur_spent
             }
 
-        return {current_timestamp: portfolio_values}
+            total_amount_eur_actual += value_in_euro
+            total_amount_eur_spent += amount_eur_spent
+
+        result = {
+            current_timestamp: {
+                "total_amount_eur_actual": total_amount_eur_actual,
+                "total_amount_eur_spent": total_amount_eur_spent,
+                **portfolio_values
+            }
+        }
+
+        return result
 
     def calculate_and_save_portfolio_values(self):
         formatted_data = self.calculate_portfolio_values_2()
